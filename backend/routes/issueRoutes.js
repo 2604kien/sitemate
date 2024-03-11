@@ -9,3 +9,4 @@ router.route('/')
 router.route('/:id')
     .get(issueController.getOneIssueInfo)
     .delete(issueController.deleteIssueById)
+module.exports=router
