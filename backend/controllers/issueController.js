@@ -38,7 +38,7 @@ const createNewIssue=async(req,res,next)=>{
     console.log(issueObject);
     const issue=await Issue.create(issueObject);
     if(issue){
-        return res.statuus(201).json({message:`Item ${title} is successfully added.`})
+        return res.status(201).json({message:`Item ${title} is successfully added.`})
     }
     else{
         return res.status(400).json({message:'Invalid data recieved'});
@@ -58,7 +58,8 @@ const deleteIssueById=async(req, res, next)=>{
     }
 }
 const updateIssueData=async(req,res,next)=>{
-    const {id, title, description}=req.body;
+    const {title, description}=req.body;
+    const {id}=req.params;
     console.log({id, title, description});
     try{
         if(!id) return res.status(400).json({message: "Missing data is required"});

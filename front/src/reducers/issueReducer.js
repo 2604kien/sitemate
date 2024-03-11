@@ -1,4 +1,6 @@
 import { createEntityAdapter, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+const serverURL="http://localhost:3500/"
 const issueAdapter=createEntityAdapter();
 
 const initialState=issueAdapter.getInitialState({
@@ -7,40 +9,29 @@ const initialState=issueAdapter.getInitialState({
     message:""
 });
 
-export const addNewIssueData=createAsyncThunk('issue/addNewissueData', async({data, token})=>{
-    const config={
-        headers: {Authorization: `Bearer ${token}`}
-        
-    }
-    const response=await axios.post(serverURL+"issue", data, config)
+export const addNewIssueData=createAsyncThunk('issue/addNewissueData', async({data})=>{
+
+    const response=await axios.post(serverURL+"issue", data)
     return response.data;
 })
-export const getAllIssueData=createAsyncThunk('issue/getAllissueData', async(token)=>{
-    const config={
-        headers: {Authorization: `Bearer ${token}`}
-    }
-    const response=await axios.get(serverURL+"issue", config);
+export const getAllIssueData=createAsyncThunk('issue/getAllissueData', async()=>{
+    
+    const response=await axios.get(serverURL+"issue");
     return response.data;
 })
-export const fetchCurrIssueData=createAsyncThunk('issue/fetchCurrissueData', async({id, token})=>{
-    const config={
-        headers: {Authorization: `Bearer ${token}`}
-    }
-    const response=await axios.get(serverURL+`issue/${id}`, config);
+export const fetchCurrIssueData=createAsyncThunk('issue/fetchCurrissueData', async({id})=>{
+   
+    const response=await axios.get(serverURL+`issue/${id}`);
     return response.data;
 })
-export const updateIssueData=createAsyncThunk('issue/updateissueData', async({data, token})=>{
-    const config={
-        headers: {Authorization: `Bearer ${token}`}
-    }
-    const response=await axios.put(serverURL+'issue/', data, config);
+export const updateIssueData=createAsyncThunk('issue/updateissueData', async({data})=>{
+
+    const response=await axios.put(serverURL+'issue/', data);
     return response.data;
 })
-export const deleteIssueById=createAsyncThunk('issue/deleteissueById', async({id, token})=>{
-    const config={
-        headers: {Authorization: `Bearer ${token}`}
-    }
-    const response=await axios.delete(serverURL+`issue/${id}`,config);
+export const deleteIssueById=createAsyncThunk('issue/deleteissueById', async({id})=>{
+
+    const response=await axios.delete(serverURL+`issue/${id}`);
     return response.data;
 })
 const issueSlice=createSlice({
@@ -58,3 +49,4 @@ const issueSlice=createSlice({
         })
     }
 })
+export default issueSlice.reducer;

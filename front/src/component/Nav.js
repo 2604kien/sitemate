@@ -4,8 +4,11 @@ import {useNavigate} from "react-router-dom";
 export default function Navbar(){
     const navigate=useNavigate();
     return(
-        <div>
-            <h1>Hello</h1>
+        <div style={{
+            height:"80px",
+            border:"1px solid black"
+        }}>
+            <h1 style={{cursor:"pointer"}} onClick={()=>navigate('/')}>Home</h1>
         </div>
     )
 }
