@@ -35,6 +35,7 @@ const createNewIssue=async(req,res,next)=>{
         title:title,
         description:description
     }
+    console.log(issueObject);
     const issue=await Issue.create(issueObject);
     if(issue){
         return res.statuus(201).json({message:`Item ${title} is successfully added.`})
@@ -48,6 +49,7 @@ const deleteIssueById=async(req, res, next)=>{
     try{
         if(!id) return res.status(400).json({message: "Id required"});
         const foundedIssue=await Issue.findById(id).exec();
+        console.log(foundedIssue);
         const result=await Issue.deleteOne(foundedIssue).exec();
         res.json(result);
     }
@@ -57,6 +59,7 @@ const deleteIssueById=async(req, res, next)=>{
 }
 const updateIssueData=async(req,res,next)=>{
     const {id, title, description}=req.body;
+    console.log({id, title, description});
     try{
         if(!id) return res.status(400).json({message: "Missing data is required"});
         const foundedIssue=await Issue.findById(id).exec();
