@@ -1,0 +1,12 @@
+.add--form{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.form--el{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}

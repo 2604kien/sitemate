@@ -4,34 +4,42 @@ const serverURL="http://localhost:3500/"
 const issueAdapter=createEntityAdapter();
 
 const initialState=issueAdapter.getInitialState({
-    currIssueData:"",
+    currIssueData:{
+        _id:"",
+        title:"",
+        description:""
+    },
     status:"idle",
     message:""
 });
 
-export const addNewIssueData=createAsyncThunk('issue/addNewissueData', async({data})=>{
+export const addNewIssueData=createAsyncThunk('issue/addNewissueData', async(data)=>{
 
-    const response=await axios.post(serverURL+"issue", data)
+    const response=await axios.post(serverURL+"issue", data);
+    console.log(response.data)
     return response.data;
 })
 export const getAllIssueData=createAsyncThunk('issue/getAllissueData', async()=>{
     
     const response=await axios.get(serverURL+"issue");
+    console.log(response.data)
     return response.data;
 })
-export const fetchCurrIssueData=createAsyncThunk('issue/fetchCurrissueData', async({id})=>{
+export const fetchCurrIssueData=createAsyncThunk('issue/fetchCurrissueData', async(id)=>{
    
     const response=await axios.get(serverURL+`issue/${id}`);
     return response.data;
 })
-export const updateIssueData=createAsyncThunk('issue/updateissueData', async({data})=>{
-
-    const response=await axios.put(serverURL+'issue/', data);
+export const updateIssueData=createAsyncThunk('issue/updateissueData', async(data)=>{
+    const {_id}=data;
+    const response=await axios.put(serverURL+`issue/${_id}`, data);
+    console.log(response.data)
     return response.data;
 })
-export const deleteIssueById=createAsyncThunk('issue/deleteissueById', async({id})=>{
+export const deleteIssueById=createAsyncThunk('issue/deleteissueById', async(id)=>{
 
     const response=await axios.delete(serverURL+`issue/${id}`);
+    console.log(response.data)
     return response.data;
 })
 const issueSlice=createSlice({

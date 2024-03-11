@@ -1,17 +1,24 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { getAllIssueData } from "../reducers/issueReducer"
+import { getAllIssueData } from "../reducers/issueReducer";
+import { useNavigate } from "react-router-dom";
+import "../css/HomePage.css";
 import IssueCard from "./IssueCard";
 export default function Home(){
     const dispatch=useDispatch();
-    const issueData=useSelector(state=>state.issue.entities);
+    const navigate=useNavigate();
+    const issueData=useSelector(state=>state.entities);
     React.useEffect(()=>{
         dispatch(getAllIssueData());
-    },[dispatch, issueData])
+    },[dispatch])
     const element=Array.isArray(issueData)?issueData.map(el=><IssueCard key={el._id} data={el}/> ):<></>
     return(
-        <div style={{height:"100px", marginTop:"100px", zIndex:"1000", border:"1px solid black", backgroundColor:"black"}}>
-            <h1>{element}</h1>
+        <div className="home--page">
+            <button onClick={()=>navigate('/add')}>Add</button>
+            <div className="form--el">
+                {element}
+            </div>
+           
         </div>
     )
 }
