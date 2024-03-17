@@ -6,6 +6,7 @@ const connectDB=require('./config/dbConn');
 const mongoose=require('mongoose');
 const corsOptions=require('./config/corsOptions');
 const PORT=3500;
+require('dotenv').config()
 connectDB();
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions))
