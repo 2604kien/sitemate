@@ -1,4 +1,4 @@
 To run backend API:
-run 'npm run dev' from backend folder on a seperate terminal
+run 'npm install' and 'npm run dev' from backend folder on a seperate terminal
 To run fronend API:
-rum 'npm start' from backend folder on a seperate terminal
+rum 'npm install' and 'npm start' from backend folder on a seperate terminal
