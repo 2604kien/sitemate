@@ -3,7 +3,7 @@ const Issue=require('../models/Issue');
 const path=require('path');
 const getAllIssueInfo=async(req,res,next)=>{
     try{
-        const foundedIssue=await Issue.find().lean();
+        const foundedIssue=await Issue.find();
         if(!foundedIssue?.length){
             return res.status(400).json({msg:"No Issue Item is found"})
         }
@@ -16,7 +16,7 @@ const getAllIssueInfo=async(req,res,next)=>{
 const getOneIssueInfo=async (req,res,next)=>{
     const {id}=req.params;
     try{
-        const foundedIssue=await Issue.findById(id).select("-__v").exec();
+        const foundedIssue=await Issue.findById(id).select("-__v");
         if(!foundedIssue){
             return res.status(400).json({msg:"No Issue Data Found"})
         }
@@ -48,9 +48,9 @@ const deleteIssueById=async(req, res, next)=>{
     const {id}=req.params;
     try{
         if(!id) return res.status(400).json({message: "Id required"});
-        const foundedIssue=await Issue.findById(id).exec();
+        const foundedIssue=await Issue.findById(id);
         console.log(foundedIssue);
-        const result=await Issue.deleteOne(foundedIssue).exec();
+        const result=await Issue.deleteOne(foundedIssue);
         res.json(result);
     }
     catch(err){
@@ -63,7 +63,7 @@ const updateIssueData=async(req,res,next)=>{
     console.log({id, title, description});
     try{
         if(!id) return res.status(400).json({message: "Missing data is required"});
-        const foundedIssue=await Issue.findById(id).exec();
+        const foundedIssue=await Issue.findById(id);
         if(!foundedIssue) return res.json({msg:"Issue not found"});
         foundedIssue.title=title;
         foundedIssue.description=description;
